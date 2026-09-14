@@ -1,4 +1,4 @@
-name = "share-note-worker"
+name = "sharenotes"
 main = "src/index.ts"
 compatibility_date = "2024-09-01"
 
@@ -8,23 +8,20 @@ directory = "./public"
 binding = "ASSETS"
 
 # Cloudflare D1 Database binding
-# Run: npx wrangler d1 create notesx-db
-# Then replace database_id below with your real ID:
 [[d1_databases]]
 binding = "DB"
-database_name = "notesx-db"
-database_id = "YOUR_D1_DATABASE_ID_HERE"
+database_name = "sharenotes-db"
+database_id = "5f7b08fa-2011-4da8-8b04-2a8b86faf046"
 
 # Cloudflare R2 Storage binding
-# Run: npx wrangler r2 bucket create notesx-storage
 [[r2_buckets]]
 binding = "R2"
-bucket_name = "notesx-storage"
+bucket_name = "sharenotes-storage"
 
 # Environment variables
 [vars]
-BASE_WEB_URL = "https://notes.yourdomain.com"
-HASH_SALT = "replace-this-with-a-random-salt-string"
+BASE_WEB_URL = "https://sharenotes.guoyingwei.top"
+HASH_SALT = "CHANGE_ME_IN_CF_DASHBOARD_OR_SECRETS"
 ALLOW_NEW_USERS = "true"
 FILENAME_LENGTH_HTML = "8"
 MAXIMUM_UPLOAD_SIZE_MB = "5"

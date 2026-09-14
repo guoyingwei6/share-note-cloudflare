@@ -115,7 +115,7 @@ binding = "R2"
 bucket_name = "notesx-storage"
 
 [vars]
-BASE_WEB_URL = "https://notes.yourdomain.com"  # 你的自定义域名或 workers.dev 域名
+BASE_WEB_URL = "https://sharenotes.guoyingwei.top"  # 你的自定义域名或 workers.dev 域名
 HASH_SALT = "生成一段任意随机长字符串作为盐值"
 ALLOW_NEW_USERS = "true"
 FILENAME_LENGTH_HTML = "8"
@@ -138,7 +138,7 @@ npx wrangler deploy
 2. 将 `"server"` 地址修改为你的 Worker 域名：
    ```json
    {
-     "server": "https://notes.yourdomain.com",
+     "server": "https://sharenotes.guoyingwei.top",
      "api_key": ""
    }
    ```
