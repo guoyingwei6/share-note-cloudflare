@@ -17,6 +17,153 @@ app.use('/v1/*', cors())
 // Health check endpoint
 app.get('/v1/ping', (c) => c.text('ok'))
 
+// Homepage / Service Status
+app.get('/', (c) => {
+  const html = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Share Note Server</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --success: #16a34a;
+      --badge-bg: #dcfce7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --border: #334155;
+        --primary: #3b82f6;
+        --success: #22c55e;
+        --badge-bg: rgba(34, 197, 94, 0.15);
+      }
+    }
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+    }
+    .container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--success);
+      background: var(--badge-bg);
+      border-radius: 9999px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 16px 0;
+      font-size: 0.95rem;
+    }
+    .info-box {
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 20px 0;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+    .label { color: var(--muted); }
+    .val { font-weight: 600; font-family: monospace; }
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Share Note Server</h1>
+      <span class="badge"><span class="dot"></span>运行正常</span>
+    </div>
+    <p>这是专为 <strong>Obsidian Share Note</strong> 插件部署的私人独立后端服务，托管于 Cloudflare 全球边缘网络。</p>
+    <div class="info-box">
+      <div class="info-item"><span class="label">运行时</span><span class="val">Cloudflare Workers</span></div>
+      <div class="info-item"><span class="label">数据库</span><span class="val">Cloudflare D1 (SQLite)</span></div>
+      <div class="info-item"><span class="label">存储后端</span><span class="val">Cloudflare R2 (Storage)</span></div>
+      <div class="info-item"><span class="label">服务状态</span><span class="val" style="color:var(--success)">200 OK</span></div>
+    </div>
+    <p style="font-size:0.9rem;">
+      <strong>连接提示</strong>：在 Obsidian 插件设置中将服务地址配置为 <code>${c.env.BASE_WEB_URL}</code>，点击 Connect 即可配对。
+    </p>
+    <div class="footer">
+      <span>Powered by Cloudflare Serverless</span>
+      <a href="https://github.com/guoyingwei6/share-note-cloudflare" target="_blank">GitHub 仓库</a>
+    </div>
+  </div>
+</body>
+</html>`;
+  return c.html(html)
+})
+
 // ---------------------------------------------------------------------------
 // Account Registration / API Key Pairing
 // ---------------------------------------------------------------------------
